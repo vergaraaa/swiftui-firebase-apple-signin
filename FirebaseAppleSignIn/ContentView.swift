@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    @AppStorage("log_Status") private var logStatus: Bool = false
+    @StateObject var viewModel = ContentViewModel()
     
     var body: some View {
-        if logStatus {
+        if viewModel.userSession != nil {
             HomeView()
         }
         else {

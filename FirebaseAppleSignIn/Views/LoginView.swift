@@ -20,8 +20,6 @@ struct LoginView: View {
     
     @Environment(\.colorScheme) private var theme
     
-    @AppStorage("log_Status") private var logStatus: Bool = false
-    
     var body: some View {
         ZStack(alignment: .bottom) {
             GeometryReader {
@@ -87,7 +85,7 @@ struct LoginView: View {
                 .padding(.top, 10)
                 
                 // other sign in options
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                Button(action: {}, label: {
                     Text("Other Sign In Options")
                         .foregroundStyle(Color.primary)
                         .frame(height: 40)
@@ -165,8 +163,7 @@ struct LoginView: View {
                     return
                 }
                 // User is signed in to Firebase with Apple.
-                
-                logStatus = true
+                AuthService.shared.userSession = authResult?.user
                 isLoading = false
             }
         }
