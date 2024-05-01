@@ -21,6 +21,8 @@
 		F08714FB2BE238100049067C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08714FA2BE238100049067C /* HomeView.swift */; };
 		F08714FE2BE23A7F0049067C /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08714FD2BE23A7F0049067C /* AuthService.swift */; };
 		F08715012BE23B090049067C /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08715002BE23B090049067C /* ContentViewModel.swift */; };
+		F08715032BE23E810049067C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08715022BE23E810049067C /* LoginViewModel.swift */; };
+		F08715052BE242640049067C /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08715042BE242640049067C /* LoadingView.swift */; };
 		F0E5A0032BE22C2900E9A3CE /* FirebaseAppleSignInApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E5A0022BE22C2900E9A3CE /* FirebaseAppleSignInApp.swift */; };
 		F0E5A0052BE22C2900E9A3CE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E5A0042BE22C2900E9A3CE /* ContentView.swift */; };
 		F0E5A0072BE22C2900E9A3CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0E5A0062BE22C2900E9A3CE /* Assets.xcassets */; };
@@ -38,6 +40,8 @@
 		F08714FA2BE238100049067C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		F08714FD2BE23A7F0049067C /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		F08715002BE23B090049067C /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		F08715022BE23E810049067C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		F08715042BE242640049067C /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		F0E59FFF2BE22C2900E9A3CE /* FirebaseAppleSignIn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebaseAppleSignIn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0E5A0022BE22C2900E9A3CE /* FirebaseAppleSignInApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAppleSignInApp.swift; sourceTree = "<group>"; };
 		F0E5A0042BE22C2900E9A3CE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -87,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				F08715002BE23B090049067C /* ContentViewModel.swift */,
+				F08715022BE23E810049067C /* LoginViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -136,6 +141,7 @@
 			children = (
 				F0E5A01F2BE22D0D00E9A3CE /* LoginView.swift */,
 				F08714FA2BE238100049067C /* HomeView.swift */,
+				F08715042BE242640049067C /* LoadingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -237,7 +243,9 @@
 				F08715012BE23B090049067C /* ContentViewModel.swift in Sources */,
 				F08714FE2BE23A7F0049067C /* AuthService.swift in Sources */,
 				F0E5A0052BE22C2900E9A3CE /* ContentView.swift in Sources */,
+				F08715052BE242640049067C /* LoadingView.swift in Sources */,
 				F0E5A0032BE22C2900E9A3CE /* FirebaseAppleSignInApp.swift in Sources */,
+				F08715032BE23E810049067C /* LoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,17 +6,13 @@
 //
 
 import SwiftUI
-import AuthenticationServices
 import Firebase
 import CryptoKit
-import FirebaseAuth
+import AuthenticationServices
 
 struct LoginView: View {
-    
-    @State private var errorMessage: String = ""
-    @State private var showAlert: Bool = false
-    @State private var isLoading: Bool = false
-    @State private var nonce: String?
+
+    @StateObject private var viewModel = LoginViewModel()
     
     @Environment(\.colorScheme) private var theme
     
@@ -54,17 +50,19 @@ struct LoginView: View {
                 
                 SignInWithAppleButton(.signIn) { request in
                     let nonce = randomNonceString()
-                    self.nonce = nonce
+                    viewModel.nonce = nonce
                     
                     request.requestedScopes = [.email, .fullName]
                     request.nonce = sha256(nonce)
                 } onCompletion: { result in
                     switch result {
                     case .success(let authorization):
-                        loginWithFirebase(authorization)
+                        Task {
+                            try await viewModel.login(authorization)
+                        }
                         
                     case .failure(let error):
-                        showError(error.localizedDescription)
+                        viewModel.showError(error.localizedDescription)
                     }
                 }
                 .overlay {
@@ -100,71 +98,10 @@ struct LoginView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(20)
         }
-        .alert(errorMessage, isPresented: $showAlert) { }
+        .alert(viewModel.errorMessage, isPresented: $viewModel.showAlert) { }
         .overlay {
-            if isLoading {
-                LoadingScreen()
-            }
-        }
-    }
-    
-    // Loading Screen
-    @ViewBuilder
-    func LoadingScreen() -> some View {
-        ZStack {
-            Rectangle()
-                .fill(.ultraThinMaterial)
-            
-            ProgressView()
-                .frame(width: 45, height: 45)
-                .background(.background, in: .rect(cornerRadius: 5))
-        }
-    }
-    
-    // presenting error
-    func showError(_ message: String) {
-        errorMessage = message
-        showAlert.toggle()
-        isLoading = false
-    }
-    
-    // login function
-    func loginWithFirebase(_ authorization: ASAuthorization) {
-        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            // showing loading screen untillogin completes with firebase
-            
-            isLoading = true
-            
-            guard let nonce else {
-                //                fatalError("Invalid state: A login callback was received, but no login request was sent.")
-                showError("Cannot process your request.")
-                return
-            }
-            guard let appleIDToken = appleIDCredential.identityToken else {
-                //                print("Unable to fetch identity token")
-                showError("Cannot process your request.")
-                return
-            }
-            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-                print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
-                return
-            }
-            // Initialize a Firebase credential, including the user's full name.
-            let credential = OAuthProvider.appleCredential(withIDToken: idTokenString,
-                                                           rawNonce: nonce,
-                                                           fullName: appleIDCredential.fullName)
-            // Sign in with Firebase.
-            Auth.auth().signIn(with: credential) { (authResult, error) in
-                if let error {
-                    // Error. If error.code == .MissingOrInvalidNonce, make sure
-                    // you're sending the SHA256-hashed nonce as a hex string with
-                    // your request to Apple.
-                    showError(error.localizedDescription)
-                    return
-                }
-                // User is signed in to Firebase with Apple.
-                AuthService.shared.userSession = authResult?.user
-                isLoading = false
+            if viewModel.isLoading {
+                LoadingView()
             }
         }
     }
